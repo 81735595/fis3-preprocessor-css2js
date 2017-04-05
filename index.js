@@ -12,7 +12,8 @@ function processCss(cssContent, conf) {
   var injectCssFn = tinytim.render(conf.templates.css_injector, {});
   return tinytim.render(conf.templates[conf.template || 'requirejs_runner'], {
     cssContent: cssContent,
-    injectCssFn: injectCssFn
+    injectCssFn: injectCssFn,
+    id: conf.id ? '"' + conf.id + '",' : ''
   });
 }
 
@@ -59,7 +60,7 @@ const REQUREJS_INJECT = "define([], function() {\n" +
 "    };\n" +
 "});";
 
-const REQUREJS_RUNNER = "define([], function() {\n" +
+const REQUREJS_RUNNER = "define({{ id }} [], function() {\n" +
 "    var cssContent = {{ cssContent }};\n" +
 "    var injectCssFn = {{ injectCssFn }};\n" +
 "\n" +
